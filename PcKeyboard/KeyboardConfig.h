@@ -1,0 +1,106 @@
+/*
+  CustomKeyboard.h - Library for making a custom keyboard.
+  Uses the Teensyduino to output serial 
+  Created by Kenny Kim, December 19, 2018.
+*/
+#ifndef KeyboardConfig_h
+#define KeyboardConfig_h
+
+#include "Arduino.h"
+
+/*int BLANK[8][14] = {
+  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+};*/
+unsigned int LAYOUT[7][8][14] = {
+  //LITERAL
+  {
+    {MODIFIERKEY_CTRL, 0, 0, 0, 0, 0, KEY_G, KEY_H, 0, 0, KEY_QUOTE, KEY_ENTER, KEY_DOWN, 0},
+    {0, MODIFIERKEY_ALT, 0, KEY_A, KEY_S, KEY_D, KEY_F, KEY_J, KEY_K, KEY_L, KEY_SEMICOLON, 0, KEY_PRINTSCREEN, 0},
+    {0, 00001, 0, 30001, 0, 0, KEY_5, KEY_6, KEY_EQUAL, 0, KEY_MINUS, KEY_BACKSPACE, KEY_PAGE_UP, 0},
+    {0, 0, 0, KEY_1, KEY_2, KEY_3, KEY_4, KEY_7, KEY_8, KEY_9, KEY_0, 0, 0, 0},
+    {00002, KEY_TAB, 0, KEY_Q, KEY_W, KEY_E, KEY_R, KEY_U, KEY_I, KEY_O, KEY_P, 0, KEY_PAGE_DOWN, 0},
+    {0, 0, 00003, 0, 0, 0, KEY_T, KEY_Y, KEY_RIGHT_BRACE, 0, 30002, 0, 0, 0},
+    {0, KEY_CAPS_LOCK, MODIFIERKEY_RIGHT_SHIFT, KEY_Z, KEY_X, KEY_C, KEY_V, KEY_M, KEY_COMMA, KEY_PERIOD, 0, KEY_UP, 0, 0},
+    {KEY_SPACE, KEY_DELETE, MODIFIERKEY_SHIFT, 0, 0, 0, KEY_B, KEY_N, 0, 0, KEY_SLASH, KEY_LEFT, KEY_RIGHT, MODIFIERKEY_GUI},
+  },
+  
+  //LITERALSHIFT
+  {
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 00001, 0, 30003, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 00003, 0, 0, 0, 0, 0, KEY_LEFT_BRACE, 0, 30004, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, KEY_COMMA, KEY_PERIOD, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+  },
+  
+  //LITERALCODE
+  {
+    {0, 0, 0, 0, 0, 0, 0, 40015, 0, 0, 30008, 40016, 0, 0},
+    {0, 0, 0, 0, 0, 40014, 0, 0, 0, 20005, 30007, 0, 40020, 0},
+    {0, 00001, 0, 30001, 0, 0, 0, 0, 0, 0, 0, 40006, 10001, 0},
+    {0, 0, 0, 40001, 40002, 40003, 40004, 0, 0, 40005, 0, 0, 0, 0},
+    {00002, 40007, 0, 40008, 0, 0, 40009, 20004, 40012, 40013, 0, 0, 10002, 0},
+    {0, 0, 00003, 0, 0, 0, 0, 40010, 30006, 0, 30005, 0, 0, 0},
+    {0, 0, 0, 0, 0, 40017, 0, 0, 0, 0, 0, 0, 0, 0},
+    {40018, 40019, 0, 0, 0, 0, 20006, 0, 0, 0, 0, 20009, 20010, 0},
+  },
+  
+  //STANDARD
+  {
+    {MODIFIERKEY_CTRL, 0, 0, 0, 0, 0, KEY_G, KEY_H, 0, 0, KEY_QUOTE, KEY_ENTER, KEY_DOWN, 0},
+    {0, MODIFIERKEY_ALT, 0, KEY_A, KEY_S, KEY_D, KEY_F, KEY_J, KEY_K, KEY_L, KEY_SEMICOLON, 0, KEY_PRINTSCREEN, 0},
+    {0, 00001, 0, KEY_TILDE, 0, 0, KEY_5, KEY_6, KEY_EQUAL, 0, KEY_MINUS, KEY_BACKSPACE, KEY_PAGE_UP, 0},
+    {0, 0, 0, KEY_1, KEY_2, KEY_3, KEY_4, KEY_7, KEY_8, KEY_9, KEY_0, 0, 0, 0},
+    {00002, KEY_TAB, 0, KEY_Q, KEY_W, KEY_E, KEY_R, KEY_U, KEY_I, KEY_O, KEY_P, 0, KEY_PAGE_DOWN, 0},
+    {0, 0, 00003, 0, 0, 0, KEY_T, KEY_Y, KEY_RIGHT_BRACE, 0, KEY_LEFT_BRACE, 0, 0, 0},
+    {0, KEY_CAPS_LOCK, MODIFIERKEY_RIGHT_SHIFT, KEY_Z, KEY_X, KEY_C, KEY_V, KEY_M, KEY_COMMA, KEY_PERIOD, 0, KEY_UP, 0, 0},
+    {KEY_SPACE, KEY_DELETE, MODIFIERKEY_SHIFT, 0, 0, 0, KEY_B, KEY_N, 0, 0, KEY_SLASH, KEY_LEFT, KEY_RIGHT, MODIFIERKEY_GUI},
+  },
+
+  //FUNCTION
+  {
+    {MODIFIERKEY_CTRL, 0, 0, 0, 0, 0, 0, KEY_HOME, 0, 0, 0, KEY_ENTER, 10009, 0},
+    {0, MODIFIERKEY_ALT, 0, 0, 0, KEY_DELETE, 0, 0, 0, 0, 0, 0, KEY_SCROLL_LOCK, 0},
+    {0, 00001, 0, KEY_ESC, 0, 0, KEY_F5, KEY_F6, KEY_F10, 0, KEY_F11, KEY_BACKSPACE, 10006, 0},
+    {0, 0, 0, KEY_F1, KEY_F2, KEY_F3, KEY_F4, KEY_F7, KEY_F8, KEY_F9, KEY_F10, 0, 0, 0},
+    {00002, 0, 0, 0, 0, KEY_END, 0, 0, KEY_INSERT, 0, KEY_PAUSE, 0, 10007, 0},
+    {0, 0, 00003, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, MODIFIERKEY_RIGHT_SHIFT, 0, 0, 0, 0, 0, 10003, 10004, 0, 10008, 0, 0},
+    {KEY_SPACE, KEY_DELETE, MODIFIERKEY_SHIFT, 0, 0, 0, 0, KEY_NUM_LOCK, 0, 0, 10005, 10010, 10011, MODIFIERKEY_GUI},
+  },
+
+  //MEDIA
+  {
+    {MODIFIERKEY_CTRL, 0, 0, 0, 0, 0, KEY_MEDIA_PAUSE, KEY_MEDIA_FAST_FORWARD, 0, 0, KEYPAD_6, KEYPAD_ENTER, KEY_DOWN, 0},
+    {0, MODIFIERKEY_ALT, 0, 0, KEY_MEDIA_PREV_TRACK, KEY_MEDIA_REWIND, KEY_MEDIA_PLAY, KEY_MEDIA_NEXT_TRACK, KEY_MEDIA_PLAY_SKIP, KEYPAD_4, KEYPAD_5, 0, KEY_SYSTEM_WAKE_UP, 0},
+    {0, 00001, 0, KEY_ESC, 0, 0, KEYPAD_5, KEYPAD_6, KEYPAD_PERIOD, 0, 0, KEY_BACKSPACE, KEY_SYSTEM_POWER_DOWN, 0},
+    {0, 0, 0, KEYPAD_1, KEYPAD_2, KEYPAD_3, KEYPAD_4, KEYPAD_7, KEYPAD_8, KEYPAD_9, KEYPAD_0, 0, 0, 0},
+    {00002, 0, 0, 0, KEYPAD_PLUS, KEYPAD_MINUS, KEYPAD_ASTERIX, 0, 0, KEYPAD_7, KEYPAD_8, 0, KEY_SYSTEM_SLEEP, 0},
+    {0, 0, 00003, 0, 0, 0, KEYPAD_SLASH, 0, 0, 0, KEY_LEFT_BRACE, 0, 0, 0},
+    {0, 0, 0, 0, 0, KEY_MEDIA_RECORD, KEY_MEDIA_STOP, KEY_MEDIA_VOLUME_INC, KEYPAD_1, KEYPAD_2, 0, KEY_UP, 0, 0},
+    {KEY_MEDIA_PLAY_PAUSE, 0, 0, 0, 0, 0, KEY_MEDIA_MUTE, KEY_MEDIA_VOLUME_DEC, 0, 0, KEYPAD_3, KEY_LEFT, KEY_RIGHT, KEY_MEDIA_EJECT},
+  },
+
+  //MUSIC
+  {
+    {MODIFIERKEY_CTRL, 0, 0, 0, 0, 0, 7, 9, 0, 0, KEY_QUOTE, KEY_ENTER, KEY_DOWN, 0},
+    {0, MODIFIERKEY_ALT, 0, 0, 2, 4, 0, 11, 0, 14, 16, 0, 0, 0},
+    {0, 00001, 0, 11, 0, 0, 19, 21, 31, 0, 0, 33, 0, 0},
+    {0, 0, 0, 0, 14, 16, 0, 23, 0, 26, 28, 0, 0, 0},
+    {00002, KEY_TAB, 0, 13, 15, 17, 18, 24, 25, 27, 29, 0, 0, 0},
+    {0, 0, 00003, 0, 0, 0, 20, 22, 30, 0, 32, 0, 0, 0},
+    {0, KEY_CAPS_LOCK, MODIFIERKEY_RIGHT_SHIFT, 1, 3, 5, 6, 12, 13, 15, 0, KEY_UP, 0, 0},
+    {KEY_SPACE, KEY_DELETE, MODIFIERKEY_SHIFT, 0, 0, 0, 8, 10, 0, 0, 17, KEY_LEFT, KEY_RIGHT, MODIFIERKEY_GUI},
+  }
+};
+#endif
